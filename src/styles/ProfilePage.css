@@ -1,0 +1,145 @@
+.cheq-profile-page {
+  background: #040404;
+  min-height: 100vh;
+  padding: 16px;
+  font-family: Inter, sans-serif;
+}
+.cheq-profile-back {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.cheq-profile-card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  margin-top: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.cheq-avatar-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 16px auto;
+}
+.cheq-profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0879D1;
+}
+.cheq-avatar-edit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: #0879D1;
+  color: white;
+  cursor: pointer;
+}
+.cheq-avatar-uploading {
+  font-size: 11px;
+  color: #0879D1;
+  margin-top: 4px;
+  text-align: center;
+}
+.cheq-profile-title {
+  text-align: center;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #10231c;
+}
+.cheq-profile-subtitle {
+  text-align: center;
+  color: #8a9a96;
+  font-size: 13px;
+  margin: 4px 0 20px 0;
+}
+.cheq-form-row {
+  display: flex;
+  gap: 12px;
+}
+.cheq-form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+.cheq-form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a4a46;
+  margin-bottom: 6px;
+}
+.cheq-form-group input, .cheq-select-wrapper select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e6ecea;
+  background: #f8faf9;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+.cheq-disabled-input {
+  opacity: 0.6;
+  background: #eee !important;
+}
+.cheq-select-wrapper {
+  position: relative;
+}
+.cheq-select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #888;
+}
+.cheq-password-button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #e6ecea;
+  background: #f8faf9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px 0;
+  font-weight: 600;
+}
+.cheq-save-button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 14px;
+  border: none;
+  background: #0a7ddf;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.cheq-save-button:disabled {
+  opacity: 0.6;
+}
+.cheq-profile-loading {
+  background: #FCEEF2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+

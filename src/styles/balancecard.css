@@ -1,0 +1,61 @@
+.balance-card {
+  position: relative;
+  padding: 25px;
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  background: linear-gradient(
+    145deg,
+    #ffffff,
+    #f9fcff
+  );
+  box-shadow: 0 8px 30px rgba(7, 28, 73, 0.03);
+}
+
+.balance-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy);
+}
+
+.balance-label svg {
+  color: var(--green);
+}
+
+.balance-content {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.balance-content h1 {
+  font-size: clamp(38px, 9vw, 56px);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.balance-content p {
+  margin-top: 5px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.add-money {
+  border: 0;
+  background: var(--green);
+  color: #062442;
+  padding: 15px 20px;
+  border-radius: 13px;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.balance-toggle {
+  display: none;
+}

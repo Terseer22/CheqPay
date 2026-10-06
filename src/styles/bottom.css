@@ -1,0 +1,54 @@
+.mobile-bottom-nav {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  width: 100% !important;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px 10px max(12px, env(safe-area-inset-bottom));
+  background: #ffffff !important;
+  border-top: 1px solid #e6ecea;
+  border-radius: 24px 24px 0 0;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+}
+
+.bottom-item {
+  border: 0;
+  background: none;
+  color: #8a9bb0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bottom-item .icon-wrap {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.bottom-item.active {
+  color: #08d17d;
+}
+
+.bottom-item.active .icon-wrap {
+  background: #e7f9ef;
+}
+
+.active-dot {
+  width: 4px;
+  height: 4px;
+  background: #08d17d;
+  border-radius: 50%;
+}

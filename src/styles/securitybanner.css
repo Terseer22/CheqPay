@@ -1,0 +1,57 @@
+.security-section {
+  padding: 20px 24px 100px;
+  background: white;
+}
+
+.security-card {
+  width: min(1180px, 100%);
+  margin: auto;
+  padding: 45px;
+  border-radius: 30px;
+  background: var(--navy);
+  color: white;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 25px;
+}
+
+.security-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 200, 120, 0.15);
+  color: var(--green);
+}
+
+.security-card span {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.security-card h2 {
+  margin-top: 7px;
+  font-size: 30px;
+}
+
+.security-card p {
+  margin-top: 8px;
+  max-width: 650px;
+  color: #aabbd8;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.security-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 800;
+}

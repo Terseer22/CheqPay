@@ -1,42 +1,39 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
+import MobileHome from "./pages/MobileHome";
+import DesktopHome from "./pages/DesktopHome"
+import BulkSmsPage from "./pages/BulkSmsPage"
+import Login from "./pages/login"
+import Airtime from "./pages/Airtime";
+import DataStation from "./pages/DataStation";
+import Profile from "./pages/Profile"
+import CableStation from "./pages/CableStation"
+import ElectriciyStation from "./pages/ElectricityStation"
 
-// Lazy load all pages - e go load only when user need am
-const Login = lazy(() => import("./pages/login.jsx"));
-const Signup = lazy(() => import("./pages/Signup.jsx"));
-const Home = lazy(() => import("./pages/Home.jsx"));
-const Profile = lazy(() => import("./pages/Profile.jsx"));
-const FundWallet = lazy(() => import("./pages/FundWallet.jsx"));
-const FundingHistory = lazy(() => import("./pages/FundingHistory.jsx"));
-const MobileHome = lazy(() => import("./pages/MobileHome.jsx"));
-const DesktopHome = lazy(() => import("./pages/DesktopHome.jsx"));
-const Admin = lazy(() => import("./pages/Admin.jsx"));
-const DataStation = lazy(() => import("./pages/DataStation.jsx"));
-const Airtime = lazy(() => import("./pages/Airtime.jsx"));
-const CableStation = lazy(() => import("./pages/CableStation.jsx"));
-const ElectricityStation = lazy(() => import("./pages/ElectricityStation.jsx"));
-const ExamPinPage = lazy(() => import("./pages/ExamPinPage.jsx"));
+export default function App() {
+  const [page, setPage] = useState("mobileHome");
+  const [isDesktop, setIsDesktop] = useState(false);
 
-function App() {
-  const [page, setPage] = useState("login");
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth > 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
-  return (
-    <Suspense fallback={<div style={{padding: 20, textAlign: 'center'}}>Loading CheqPay...</div>}>
-      {page === "data" || page === "datastation" ? <DataStation setPage={setPage} /> : null}
-      {page === "airtime" ? <Airtime setPage={setPage} /> : null}
-      {page === "cable" ? <CableStation setPage={setPage} /> : null}
-      {page === "electricity" ? <ElectricityStation setPage={setPage} /> : null}
-      {page === "exam" ? <ExamPinPage setPage={setPage} /> : null}
-      {page === "desktopHome" ? <DesktopHome setPage={setPage} /> : null}
-      {page === "login" ? <Login setPage={setPage} /> : null}
-      {page === "signup" ? <Signup setPage={setPage} /> : null}
-      {page === "home" ? <Home setPage={setPage} /> : null}
-      {page === "profile" ? <Profile setPage={setPage} /> : null}
-      {page === "fundWallet" || page === "fund" ? <FundWallet setPage={setPage} /> : null}
-      {page === "fundingHistory" ? <FundingHistory setPage={setPage} /> : null}
-      {page === "mobileHome" ? <MobileHome setPage={setPage} /> : null}
-      {page === "admin" ? <Admin setPage={setPage} /> : null}
-    </Suspense>
-  );
+  if (page === "airtime") return <Airtime setPage={setPage} />;
+  if (page === "data") return <DataStation setPage={setPage} />;
+  if (page === "profile") return <Profile setPage={setPage} />;
+  if (page === "login") return <Login setPage={setPage} />;
+  if (page === "electricity") return <ElectriciyStation setPage={setPage} />;
+  if (page === "cable") return <CableStation setPage={setPage} />;
+  if (page === "bulk-sms") return <BulkSmsPage setPage={setPage} />;
+
+  // HOME LOGIC
+  if (page === "mobileHome") {
+    return isDesktop ? 
+      <DesktopHome setPage={setPage} /> : 
+      <MobileHome setPage={setPage} />;
+  }
+
+  return <MobileHome setPage={setPage} />;
 }
-
-export default App;

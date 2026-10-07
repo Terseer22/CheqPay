@@ -8,7 +8,7 @@ const NETWORKS = [
   { id: 4, name: "9MOBILE", color: "#006400", text: "#fff" },
 ]
 
-function SuccessModal({ show, onClose, phone, amount, networkName, error }) {
+function SuccessModal({ show, onClose, phone, amount, networkName, error, raw }) {
   if (!show) return null
   const isError = !!error
   return (
@@ -19,36 +19,38 @@ function SuccessModal({ show, onClose, phone, amount, networkName, error }) {
     }} onClick={onClose}>
       <div onClick={e=>e.stopPropagation()} style={{
         width: "100%", maxWidth: 360, background: "#fff", borderRadius: 28,
-        padding: 28, textAlign: "center", animation: "pop 0.4s ease"
+        padding: 28, textAlign: "center", position: "relative"
       }}>
         <button onClick={onClose} style={{ position: "absolute", top: 14, right: 14, width: 32, height: 32, borderRadius: "50%", border: "none", background: "#f2f2f2" }}>✕</button>
         <div style={{
           width: 80, height: 80, borderRadius: "50%",
           background: isError? "#FF4444" : "#00C950", margin: "0 auto 20px",
           display: "flex", alignItems: "center", justifyContent: "center",
-          boxShadow: isError? "0 0 0 12px rgba(255,68,68,0.15)" : "0 0 0 12px rgba(0,201,80,0.15)"
         }}>
           <span style={{ fontSize: 42, color: "#fff", fontWeight: 900 }}>{isError? "!" : "✓"}</span>
         </div>
         <div style={{ fontWeight: 900, fontSize: 22, color: "#111" }}>{isError? "Failed" : "Airtime Sent!"}</div>
-        <div style={{ fontSize: 14, color: "#666", marginTop: 8 }}>{isError? error : `${networkName} ₦${amount} airtime sent to ${phone}`}</div>
+        <div style={{ fontSize: 14, color: "#666", marginTop: 8, lineHeight: 1.4 }}>{isError? error : `${networkName} ₦${amount} airtime sent to ${phone}`}</div>
         
+        {isError && raw && (
+          <div style={{ marginTop: 12, background: "#f6f6f6", borderRadius: 12, padding: 10, fontSize: 10, color: "#999", wordBreak: "break-all", textAlign: "left", maxHeight: 80, overflowY: "auto" }}>
+            {raw}
+          </div>
+        )}
+
         {!isError && (
           <div style={{ marginTop: 22, display: "grid", gap: 12, textAlign: "left" }}>
-            <div style={{ background: "#f6f6f6", borderRadius: 16, padding: 14, display: "flex", gap: 12, alignItems: "center" }}>
-              <span style={{ fontSize: 22 }}>📞</span>
-              <div><div style={{ fontSize: 11, color: "#888", fontWeight: 700 }}>To</div><div style={{ fontWeight: 800, color: "#111" }}>{phone}</div></div>
+            <div style={{ background: "#f6f6f6", borderRadius: 16, padding: 14, display: "flex", gap: 12 }}>
+              <span>📞</span><div><div style={{ fontSize: 11, color: "#888" }}>To</div><div style={{ fontWeight: 800, color: "#111" }}>{phone}</div></div>
             </div>
-            <div style={{ background: "#f6f6f6", borderRadius: 16, padding: 14, display: "flex", gap: 12, alignItems: "center" }}>
-              <span style={{ fontSize: 22 }}>💰</span>
-              <div><div style={{ fontSize: 11, color: "#888", fontWeight: 700 }}>Amount</div><div style={{ fontWeight: 800, color: "#111" }}>₦{amount}</div></div>
+            <div style={{ background: "#f6f6f6", borderRadius: 16, padding: 14, display: "flex", gap: 12 }}>
+              <span>💰</span><div><div style={{ fontSize: 11, color: "#888" }}>Amount</div><div style={{ fontWeight: 800, color: "#111" }}>₦{amount}</div></div>
             </div>
           </div>
         )}
         <div style={{ fontSize: 11, color: "#999", marginTop: 16 }}>ID • CP{Date.now().toString().slice(-9)}</div>
         <button onClick={onClose} style={{ width: "100%", marginTop: 20, padding: 16, borderRadius: 16, border: "none", background: "#0A0A0A", color: "#fff", fontWeight: 800, fontSize: 16 }}>{isError? "Try Again" : "Done"}</button>
       </div>
-      <style>{`@keyframes pop { 0%{transform:scale(0.8);opacity:0}100%{transform:scale(1);opacity:1} }`}</style>
     </div>
   )
 }
@@ -58,39 +60,45 @@ export default function AirtimeStation({ setPage }) {
   const [phone, setPhone] = useState("")
   const [amount, setAmount] = useState("")
   const [loading, setLoading] = useState(false)
-  const [modal, setModal] = useState({ show: false, error: null })
+  const [modal, setModal] = useState({ show: false, error: null, raw: null })
   const activeNet = NETWORKS.find(n => n.id === network)
-
   const quickAmounts = [100, 200, 500, 1000, 2000, 5000]
 
-const handleBuy = async () => {
-  if (!phone || phone.length < 11) {
-    setModal({ show: true, error: "Enter valid phone number" }); return
-  }
-  if (!amount || Number(amount) < 50) {
-    setModal({ show: true, error: "Minimum airtime is ₦50" }); return
-  }
-  setLoading(true)
-  try {
-    const { data, error } = await supabase.functions.invoke('buy-airtime', {
-      body: { network, mobile_number: phone, amount: Number(amount) }
-    })
-    if (error) throw new Error(error.message)
-    if (data?.Status === "failed") throw new Error(data?.message)
+  const handleBuy = async () => {
+    if (!phone || phone.length < 11) {
+      setModal({ show: true, error: "Enter valid 11-digit number", raw: null }); return
+    }
+    if (!amount || Number(amount) < 50) {
+      setModal({ show: true, error: "Minimum airtime is ₦50", raw: null }); return
+    }
+    setLoading(true)
+    try {
+      const { data, error } = await supabase.functions.invoke('buy-airtime', {
+        body: { network, mobile_number: phone, amount: Number(amount) }
+      })
+      
+      if (error) throw new Error(error.message)
+      
+      // Check all possible failed responses from provider
+      const isFailed = data?.Status === "failed" || data?.status === "failed" || data?.status === "FAILED" || data?.success === false
+      
+      if (isFailed) {
+        throw new Error(data?.message || data?.api_response || "Provider failed to deliver")
+      }
 
-    setLoading(false)
-    setModal({ show: true, error: null })
-
-  } catch (e) {
-    setLoading(false)
-    setModal({ show: true, error: e.message })
+      setModal({ show: true, error: null, raw: null })
+      
+    } catch (e) {
+      setModal({ show: true, error: e.message, raw: JSON.stringify(e).slice(0,300) })
+    } finally {
+      setLoading(false)
+    }
   }
-}
 
   return (
     <div style={{ minHeight: "100vh", background: "#0A0A0A", color: "#fff" }}>
       <div style={{ padding: "18px 20px", display: "flex", alignItems: "center", gap: 14, background: "#111", borderBottom: "1px solid #222", position: "sticky", top: 0 }}>
-        <button onClick={() => setPage && setPage("home")} style={{ width: 36, height: 36, borderRadius: 12, background: "#222", border: "1px solid #333", color: "#fff", fontSize: 18 }}>←</button>
+        <button onClick={() => setPage("mobileHome")} style={{ width: 36, height: 36, borderRadius: 12, background: "#222", border: "1px solid #333", color: "#fff", fontSize: 18 }}>←</button>
         <div><div style={{ fontWeight: 800 }}>Buy Airtime</div><div style={{ fontSize: 11, color: "#00ff88", fontWeight: 700 }}>Instant Recharge</div></div>
       </div>
 
@@ -124,7 +132,7 @@ const handleBuy = async () => {
 
         <div style={{ marginTop: 16, display: "flex", gap: 8, flexWrap: "wrap" }}>
           {quickAmounts.map(a => (
-            <button key={a} onClick={()=>setAmount(a)} style={{
+            <button key={a} onClick={()=>setAmount(a.toString())} style={{
               padding: "8px 16px", borderRadius: 20, border: "1px solid #333",
               background: Number(amount)===a? "#fff" : "#1E1E1E",
               color: Number(amount)===a? "#000" : "#aaa", fontWeight: 700, fontSize: 13
@@ -141,7 +149,12 @@ const handleBuy = async () => {
       <SuccessModal
         show={modal.show}
         error={modal.error}
-        onClose={()=>{ const err=!!modal.error; setModal({show:false,error:null}); if(!err && setPage) setPage("home") }}
+        raw={modal.raw}
+        onClose={()=>{ 
+          const err=!!modal.error; 
+          setModal({show:false,error:null,raw:null}); 
+          if(!err) setPage("mobileHome") 
+        }}
         phone={phone}
         amount={amount}
         networkName={activeNet?.name}

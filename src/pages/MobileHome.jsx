@@ -12,27 +12,13 @@ export default function MobileHome({ setPage }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const check = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+    supabase.auth.getUser().then(({ data }) => {
+      const user = data?.user;
       if (!user) return;
-      
-      console.log("Checking admin for:", user.email);
-      
-      // METHOD 1: Check by email directly (100% sure)
-      if (user.email === 'terseeranandeakor@gmail.com') {
-        setIsAdmin(true);
-        return;
-      }
-
-     
-      const { data } = await supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle();
-      
-      if (data?.is_admin) setIsAdmin(true);
-    };
-    check();
+      if (user.email === 'terseeranandeakor@gmail.com') setIsAdmin(true);
+    });
   }, []);
 
-    
   return (
     <main style={{ background: '#ffffff', minHeight: '100vh', paddingBottom: 80 }}>
       <MobileHeader setPage={setPage} />
@@ -47,6 +33,7 @@ export default function MobileHome({ setPage }) {
           </button>
         )}
       </div>
+
       <QuickActions setPage={setPage} />
       <ServicesGrid setPage={setPage} />
       <SecurityBanner />

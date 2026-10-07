@@ -1,16 +1,26 @@
-# React + Vite
+# CheqPay 🇳🇬
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Fast, reliable and affordable bill payments for Nigeria.
 
-Currently, two official plugins are available:
+Buy airtime, data bundles, electricity tokens, cable TV, exam pins, and send bulk SMS - all in one place.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Features
+- Airtime (MTN, Airtel, Glo, 9mobile)
+- Data Bundles
+- Electricity (IKEDC, EKEDC, etc.)
+- Cable TV (DSTV, GOTV, Startimes)
+- Exam Pins (WAEC, NECO, JAMB)
+- Bulk SMS
+- Secure wallet & instant funding
 
-## React Compiler
+### Tech Stack
+- React + Vite
+- Supabase (Auth, Database, Functions)
+- Lazy loading & code splitting for fast load (224kb vs 511kb before)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Live
+https://cheqpay.vercel.app (after you deploy)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Run Locally
+npm install
+npm run dev

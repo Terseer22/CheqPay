@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
 import MobileHeader from "../components/mobileheader";
 import BalanceCard from "../components/BalanceCard";
-import QuickActions from "../components/QuickActions";
-import ServicesGrid from "../components/ServicesGrid";
 import SecurityBanner from "../components/SecurityBanner";
 import BottomNavigation from "../components/BottomNavigation";
 import AirtimeCard from "../components/AirtimeCard";
@@ -11,6 +9,10 @@ import DataStation from "../components/DataStation";
 import CableStation from "../components/CableStation";
 import ElectricityStation from "../components/ElectricityStation";
 import FundingHistory from "../components/FundingHistory";
+import InstallApp from '../components/InstallApp'
+
+// Inside your return, just b
+
 
 export default function MobileHome({ setPage, page }) {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -166,7 +168,7 @@ export default function MobileHome({ setPage, page }) {
       <MobileHeader setPage={setPage} page="home" />
 
      <BalanceCard setPage={setPage} />
-        
+        <InstallApp />
       <div style={{ padding: '16px', display: 'flex', justifyContent: 'space-between' }}>
         {isAdmin && (
           <button onClick={()=>setPage("admin")} style={{ background: '#000', color: '#fff', padding: '8px 14px', borderRadius: 20, fontSize: 13, border: 'none' }}>

@@ -25,21 +25,80 @@ export default function BalanceCard({ onViewHistory, setPage }) {
 
   useEffect(() => { 
     fetchBalance();
-    const channel = supabase
-      .channel("wallet-balance-live")
-      .on("postgres_changes", { event: "*", schema: "public", table: "wallets" }, (payload) => {
-        const newBal = payload?.new?.balance;
-        if (newBal !== undefined) setBalance(Number(newBal));
-      })
-      .subscribe();
+    let channel = null;
+    let channel2 = null;
+
+    const setupChannel = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) return;
+      const userId = session.user.id;
+
+      // Listen to wallets table for THIS user only
+      channel = supabase
+        .channel(`wallet-balance-live-${userId}`)
+        .on("postgres_changes", { 
+          event: "*", 
+          schema: "public", 
+          table: "wallets",
+          filter: `user_id=eq.${userId}`
+        }, (payload) => {
+          const newBal = payload?.new?.balance;
+          if (newBal !== undefined) setBalance(Number(newBal));
+          else fetchBalance();
+        })
+        .subscribe();
+
+      // Listen to profiles table too - some transactions update profiles.wallet_balance
+      channel2 = supabase
+        .channel(`profile-balance-live-${userId}`)
+        .on("postgres_changes", { 
+          event: "*", 
+          schema: "public", 
+          table: "profiles",
+          filter: `id=eq.${userId}`
+        }, (payload) => {
+          const newBal = payload?.new?.wallet_balance;
+          if (newBal !== undefined) setBalance(Number(newBal));
+          else fetchBalance();
+        })
+        .subscribe();
+    };
+    setupChannel();
+
+    // Universal refresh - listens to ALL transaction events
     const onWalletUpdated = () => fetchBalance();
-    window.addEventListener("wallet-updated", onWalletUpdated);
+    const events = [
+      "wallet-updated",
+      "balance-updated",
+      "transaction-success",
+      "transaction-completed",
+      "airtime-success",
+      "data-success",
+      "cable-success",
+      "electricity-success",
+      "transfer-success"
+    ];
+    events.forEach(ev => window.addEventListener(ev, onWalletUpdated));
+    window.addEventListener("focus", onWalletUpdated);
+    document.addEventListener("visibilitychange", onWalletUpdated);
+
+    // Safety net: check every 3 seconds while BalanceCard is on screen
+    // This makes EVERY transaction reflect immediately even if realtime fails
+    const interval = setInterval(() => {
+      fetchBalance();
+    }, 3000);
+
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) fetchBalance();
     });
+
     return () => {
-      supabase.removeChannel(channel);
-      window.removeEventListener("wallet-updated", onWalletUpdated);
+      if (channel) supabase.removeChannel(channel);
+      if (channel2) supabase.removeChannel(channel2);
+      events.forEach(ev => window.removeEventListener(ev, onWalletUpdated));
+      window.removeEventListener("focus", onWalletUpdated);
+      document.removeEventListener("visibilitychange", onWalletUpdated);
+      clearInterval(interval);
       listener.subscription.unsubscribe();
     };
   }, []);

@@ -95,7 +95,7 @@ const MobileHeader = ({ setPage, page, currentPage }) => {
       <>
         <div onClick={() => setShowMenu(false)} style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.4)', zIndex:1001 }} />
 
-        <div style={{ position:'fixed', top:0, left:0, bottom:0, width:'50%', maxWidth:300, background:'#fff', zIndex:1002, padding:16, display:'flex', flexDirection:'column', boxShadow:'0 0 30px rgba(0,0,0,0.2)' }}>
+        <div style={{ position:'fixed', top:0, left:0, bottom:0, width:'70%', maxWidth:300, background:'#fff', zIndex:1002, padding:16, display:'flex', flexDirection:'column', boxShadow:'0 0 30px rgba(0,0,0,0.2)' }}>
           
           {/* TOP - IMAGE + USERNAME ON TOP, BALANCE BELOW */}
           <div onClick={() => goTo("profile")} style={{ display:'flex', alignItems:'center', gap:12, padding:'12px', background:'#f9f9f9', borderRadius:14, cursor:'pointer', marginBottom:14 }}>

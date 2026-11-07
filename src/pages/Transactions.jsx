@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/supabaseClient";
-import { Tv, Zap, Wallet, ArrowDownUp, Smartphone, Signal } from "lucide-react";
+import { Tv, Zap, Wallet, ArrowDownUp, Smartphone, Signal, ArrowLeft } from "lucide-react";
 
 const formatMoney = (n) => Number(n || 0).toLocaleString("en-NG", {
   minimumFractionDigits: 2,
@@ -74,10 +74,10 @@ export default function Transactions({ onBack }) {
 
   return (
     <div style={{
-      position: "fixed", inset: 0, zIndex: 9999,
+      position: "fixed", inset: 0, top: 0, zIndex: 9999,
       background: "rgba(0,0,0,0.5)", backdropFilter: "blur(6px)",
       display: "flex", justifyContent: "center", alignItems: "flex-start",
-      paddingTop: "20px", overflowY: "auto"
+      paddingTop: "0px", overflowY: "auto"
     }}>
       <style>{`
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -89,13 +89,13 @@ export default function Transactions({ onBack }) {
 
       <div style={{
         background: "#f8f9fb", width: "100%", maxWidth: "480px", minHeight: "100vh",
-        borderRadius: "24px 24px 0 0", boxShadow: "0 -10px 40px rgba(0,0,0,0.15)",
+        borderRadius: "0px", boxShadow: "0 -10px 40px rgba(0,0,0,0.15)",
         animation: "slideUp 0.3s ease"
       }}>
-        <div style={{ background: "#fff", padding: "16px 20px", borderRadius: "24px 24px 0 0", position: "sticky", top: 0, zIndex: 2, borderBottom: "1px solid #f0f0f0" }}>
+        <div style={{ background: "#fff", padding: "16px 20px", borderRadius: "0px", position: "sticky", top: 0, zIndex: 2, borderBottom: "1px solid #f0f0f0" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <button onClick={onBack} style={{ width: "38px", height: "38px", borderRadius: "50%", border: "1px solid #eee", background: "#fff", cursor: "pointer", fontSize: "18px" }}>←</button>
+              <button onClick={onBack} style={{ width: "38px", height: "38px", borderRadius: "50%", border: "none", background: "#ebc710", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}><ArrowLeft size={20} color="#000" strokeWidth={2.5} /></button>
               <div>
                 <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 800 }}>Transaction History</h3>
                 <p style={{ margin: 0, fontSize: "12px", color: "#888" }}>

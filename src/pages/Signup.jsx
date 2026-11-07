@@ -85,7 +85,7 @@ export default function Signup({ setPage }) {
 
   if (success) {
     return (
-      <div style={{ minHeight: "100vh", background: "black", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", boxSizing: "border-box" }}>
+      <div style={{ minHeight: "100vh", background: "white", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", boxSizing: "border-box" }}>
         <div style={{ background: " background: 'linear-gradient(135deg, #f2f7f5 0%, #e0e8e4 40%, #f4f7f5 75%, #f0f7f3 100%)", padding: "40px", borderRadius: "16px", textAlign: "center", maxWidth: "400px", width: "100%", boxSizing: "border-box" }}>
           <div style={{ width: "60px", height: "60px", background: "#FFEB3B", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", fontSize: "30px", color: "#fff" }}>✓</div>
           <h2 style={{ fontSize: "20px", fontWeight: 800, marginBottom: "8px" }}>Account successfully created</h2>

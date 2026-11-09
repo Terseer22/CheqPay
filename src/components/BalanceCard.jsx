@@ -16,6 +16,7 @@ export default function BalanceCard({ onViewHistory, setPage }) {
   const [showBalance, setShowBalance] = useState(true);
   const pendingAmount = useRef(0);
   const balanceRef = useRef(0);
+  const channelRef = useRef(null);
   balanceRef.current = balance;
 
   const showToast = (type, msg) => {
@@ -23,90 +24,10 @@ export default function BalanceCard({ onViewHistory, setPage }) {
     setTimeout(() => setToast(null), 4000);
   };
 
-  useEffect(() => { 
-    fetchBalance();
-    let channel = null;
-    let channel2 = null;
-
-    const setupChannel = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user) return;
-      const userId = session.user.id;
-
-      // Listen to wallets table for THIS user only
-      channel = supabase
-        .channel(`wallet-balance-live-${userId}`)
-        .on("postgres_changes", { 
-          event: "*", 
-          schema: "public", 
-          table: "wallets",
-          filter: `user_id=eq.${userId}`
-        }, (payload) => {
-          const newBal = payload?.new?.balance;
-          if (newBal !== undefined) setBalance(Number(newBal));
-          else fetchBalance();
-        })
-        .subscribe();
-
-      // Listen to profiles table too - some transactions update profiles.wallet_balance
-      channel2 = supabase
-        .channel(`profile-balance-live-${userId}`)
-        .on("postgres_changes", { 
-          event: "*", 
-          schema: "public", 
-          table: "profiles",
-          filter: `id=eq.${userId}`
-        }, (payload) => {
-          const newBal = payload?.new?.wallet_balance;
-          if (newBal !== undefined) setBalance(Number(newBal));
-          else fetchBalance();
-        })
-        .subscribe();
-    };
-    setupChannel();
-
-    // Universal refresh - listens to ALL transaction events
-    const onWalletUpdated = () => fetchBalance();
-    const events = [
-      "wallet-updated",
-      "balance-updated",
-      "transaction-success",
-      "transaction-completed",
-      "airtime-success",
-      "data-success",
-      "cable-success",
-      "electricity-success",
-      "transfer-success"
-    ];
-    events.forEach(ev => window.addEventListener(ev, onWalletUpdated));
-    window.addEventListener("focus", onWalletUpdated);
-    document.addEventListener("visibilitychange", onWalletUpdated);
-
-    // Safety net: check every 3 seconds while BalanceCard is on screen
-    // This makes EVERY transaction reflect immediately even if realtime fails
-    const interval = setInterval(() => {
-      fetchBalance();
-    }, 3000);
-
-    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) fetchBalance();
-    });
-
-    return () => {
-      if (channel) supabase.removeChannel(channel);
-      if (channel2) supabase.removeChannel(channel2);
-      events.forEach(ev => window.removeEventListener(ev, onWalletUpdated));
-      window.removeEventListener("focus", onWalletUpdated);
-      document.removeEventListener("visibilitychange", onWalletUpdated);
-      clearInterval(interval);
-      listener.subscription.unsubscribe();
-    };
-  }, []);
-
   const fetchBalance = async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user) return;
+      if (!session?.user) return null;
       const user = session.user;
       setEmail(user.email);
       const { data: wallet } = await supabase
@@ -134,6 +55,90 @@ export default function BalanceCard({ onViewHistory, setPage }) {
       return null;
     }
   };
+
+  useEffect(() => { 
+    fetchBalance();
+    let isMounted = true;
+
+    const setupChannel = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user || !isMounted) return;
+      const userId = session.user.id;
+
+      // FIX: Remove old channel first, and use UNIQUE name so StrictMode double-run no clash
+      if (channelRef.current) {
+        await supabase.removeChannel(channelRef.current);
+        channelRef.current = null;
+      }
+
+      // ONE channel for both tables, with random suffix to avoid duplicate name
+      const uniqueId = `${userId}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      const channel = supabase
+        .channel(`wallet-balance-live-${uniqueId}`)
+        .on("postgres_changes", { 
+          event: "*", 
+          schema: "public", 
+          table: "wallets",
+          filter: `user_id=eq.${userId}`
+        }, (payload) => {
+          const newBal = payload?.new?.balance;
+          if (newBal !== undefined) setBalance(Number(newBal));
+          else fetchBalance();
+        })
+        .on("postgres_changes", { 
+          event: "*", 
+          schema: "public", 
+          table: "profiles",
+          filter: `id=eq.${userId}`
+        }, (payload) => {
+          const newBal = payload?.new?.wallet_balance;
+          if (newBal !== undefined) setBalance(Number(newBal));
+          else fetchBalance();
+        })
+        .subscribe();
+
+      channelRef.current = channel;
+    };
+    setupChannel();
+
+    // Universal refresh - listens to ALL transaction events
+    const onWalletUpdated = () => fetchBalance();
+    const events = [
+      "wallet-updated",
+      "balance-updated",
+      "transaction-success",
+      "transaction-completed",
+      "airtime-success",
+      "data-success",
+      "cable-success",
+      "electricity-success",
+      "transfer-success"
+    ];
+    events.forEach(ev => window.addEventListener(ev, onWalletUpdated));
+    window.addEventListener("focus", onWalletUpdated);
+    document.addEventListener("visibilitychange", onWalletUpdated);
+
+    const interval = setInterval(() => {
+      fetchBalance();
+    }, 3000);
+
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) fetchBalance();
+    });
+
+    return () => {
+      isMounted = false;
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current);
+        channelRef.current = null;
+      }
+      events.forEach(ev => window.removeEventListener(ev, onWalletUpdated));
+      window.removeEventListener("focus", onWalletUpdated);
+      document.removeEventListener("visibilitychange", onWalletUpdated);
+      clearInterval(interval);
+      listener.subscription.unsubscribe();
+    };
+  }, []);
 
   const waitForBalanceUpdate = async (expectedAdd) => {
     const oldBalance = balanceRef.current;

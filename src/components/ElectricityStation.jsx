@@ -3,23 +3,36 @@ import { supabase } from "../supabase/supabaseClient"
 import { styles } from "./AirtimeStyles";
 import { Lock, ShieldCheck } from "lucide-react";
 
+// IMPORT FROM src/logo/icons
+import ikedcLogo from "../logo/icons/ikeja.webp";
+import ekedcLogo from "../logo/icons/eko.webp";
+import aedcLogo from "../logo/icons/abuja.webp";
+import kedcoLogo from "../logo/icons/kedco.webp";
+import eedcLogo from "../logo/icons/eedc.webp";
+import phedLogo from "../logo/icons/phed.webp";
+import ibedcLogo from "../logo/icons/ibedc.webp";
+import kaedcoLogo from "../logo/icons/kaedco.webp";
+import jedLogo from "../logo/icons/jos.webp";
+import bedcLogo from "../logo/icons/bedc.webp";
+import yedcLogo from "../logo/icons/yedc.webp";
+
 const formatMoney = (n) => Number(n || 0).toLocaleString("en-NG", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 })
 
 const DISCOS = [
-  { id: 1, name: "Ikeja Electric", short: "ikedc", logo: "/electricity/ikedc.png" },
-  { id: 2, name: "Eko Electric", short: "ekedc", logo: "/electricity/ekedc.png" },
-  { id: 3, name: "Abuja Electric", short: "aedc", logo: "/electricity/aedc.png" },
-  { id: 4, name: "Kano Electric", short: "kedco", logo: "/electricity/kedco.png" },
-  { id: 5, name: "Enugu Electric", short: "eedc", logo: "/electricity/eedc.png" },
-  { id: 6, name: "Port Harcourt Electric", short: "phed", logo: "/electricity/phed.png" },
-  { id: 7, name: "Ibadan Electric", short: "ibedc", logo: "/electricity/ibedc.png" },
-  { id: 8, name: "Kaduna Electric", short: "kaedco", logo: "/electricity/kaedco.png" },
-  { id: 9, name: "Jos Electric", short: "jed", logo: "/electricity/jed.png" },
-  { id: 10, name: "Benin Electric", short: "bedc", logo: "/electricity/bedc.png" },
-  { id: 11, name: "Yola Electric", short: "yedc", logo: "/electricity/yedc.png" },
+  { id: 1, name: "Ikeja Electric", short: "ikeja", logo: ikedcLogo },
+  { id: 2, name: "Eko Electric", short: "eko", logo: ekedcLogo },
+  { id: 3, name: "Abuja Electric", short: "abuja", logo: aedcLogo },
+  { id: 4, name: "Kano Electric", short: "kedco", logo: kedcoLogo },
+  { id: 5, name: "Enugu Electric", short: "eedc", logo: eedcLogo },
+  { id: 6, name: "Port Harcourt Electric", short: "phed", logo: phedLogo },
+  { id: 7, name: "Ibadan Electric", short: "ibedc", logo: ibedcLogo },
+  { id: 8, name: "Kaduna Electric", short: "kaedco", logo: kaedcoLogo },
+  { id: 9, name: "Jos Electric", short: "jos", logo: jedLogo },
+  { id: 10, name: "Benin Electric", short: "bedc", logo: bedcLogo },
+  { id: 11, name: "Yola Electric", short: "yedc", logo: yedcLogo },
 ]
 
 const PROFIT = 50
@@ -204,9 +217,9 @@ export default function electricitystation() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
           {DISCOS.map(d => (
             <button key={d.id} onClick={()=>{ setActive(d); setToast(null); resetMeter() }} style={{ background: "#1E242E", border: active?.id === d.id ? "2px solid #FFEB3B" : "1px solid #2C3440", borderRadius: 14, padding: "12px 6px 10px", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-              <img src={d.logo} alt={d.short} style={{ width: 44, height: 44, objectFit: "contain", borderRadius: 10, background: "#fff", padding: 4 }} onError={(e)=>{ e.target.style.display="none" }} />
-              <span style={{ fontSize: 10, fontWeight: 800, color: "#fff", textTransform: "lowercase", textAlign: "center", lineHeight: 1.2 }}>{d.short}</span>
-              <span style={{ fontSize: 9, color: "#888", textAlign: "center", lineHeight: 1.1 }}>{d.name.replace(" Electric","")}</span>
+              <img src={d.logo} alt={d.short} style={{ width: 44, height: 44, objectFit: "contain", borderRadius: 10, background: "#fff", padding: 4 }} />
+              {/* WHITE NAME ONLY - grey one removed, first letter capital */}
+              <span style={{ fontSize: 11, fontWeight: 800, color: "#fff", textTransform: "capitalize", textAlign: "center", lineHeight: 1.2 }}>{d.short}</span>
             </button>
           ))}
         </div>
@@ -226,10 +239,10 @@ export default function electricitystation() {
           <div style={{...styles.modalCard, maxHeight:"85vh", overflowY:"auto"}}>
             <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px"}}>
               <div style={{display:"flex", alignItems:"center", gap:10}}>
-                <img src={active.logo} alt={active.short} style={{ width: 48, height: 48, objectFit: "contain", borderRadius: 12, background: "#fff", padding: 4 }} onError={(e)=>{ e.target.style.display="none" }} />
+                <img src={active.logo} alt={active.short} style={{ width: 48, height: 48, objectFit: "contain", borderRadius: 12, background: "#fff", padding: 4 }} />
                 <div>
                   <h2 style={{color:"#fff", margin:0, fontSize:"20px"}}>{active.name}</h2>
-                  <p style={{color:"#888", fontSize:"12px", margin:"2px 0 0", textTransform:"lowercase"}}>{active.short} • {meterType === "prepaid" ? "Prepaid" : "Postpaid"}</p>
+                  <p style={{color:"#ccc", fontSize:"12px", margin:"2px 0 0", textTransform:"capitalize"}}>{active.short} • {meterType === "prepaid" ? "Prepaid" : "Postpaid"}</p>
                 </div>
               </div>
               <button onClick={()=>setActive(null)} style={{width:"36px", height:"36px", borderRadius:"50%", border:"none", background:"#2C3440", color:"#fff", cursor:"pointer", fontSize:"18px", fontWeight:700}}>✕</button>
@@ -300,13 +313,12 @@ export default function electricitystation() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', zIndex: 10000, padding: 0 }} onClick={closePin}>
           <div onClick={(e) => e.stopPropagation()} style={{ background: '#141A24', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: '12px 24px 28px', width: '100%', maxWidth: 420, textAlign: 'center', borderTop: '1px solid #2C3440', boxShadow: '0 -20px 50px rgba(0,0,0,0.5)' }}>
             <div style={{ width: 44, height: 5, borderRadius: 99, background: '#2C3440', margin: '0 auto 20px' }} />
-            {/* SAME AS AIRTIME - EXACT COPY */}
             <div style={{ width: 56, height: 56, borderRadius: 16, background: '#FFEB3B', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', boxShadow: '0 8px 20px rgba(255,235,59,0.25)' }}>
               <Lock size={26} color="#000" strokeWidth={2.4} />
             </div>
             <h3 style={{ margin: '0 0 6px', color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '-0.3px' }}>Enter Transaction PIN</h3>
             <p style={{ fontSize: 13, color: '#9AA3B2', margin: '0 0 6px', lineHeight: 1.5 }}>Pay <b style={{ color: '#fff' }}>₦{formatMoney(totalToPay)}</b> to <b style={{ color: '#fff' }}>{customerName}</b></p>
-            <p style={{ fontSize: 12, color: '#6B7280', margin: '0 0 22px', textTransform: "lowercase" }}>{active?.name} • {meterNumber} • {meterType} • {customerPhone}</p>
+            <p style={{ fontSize: 12, color: '#6B7280', margin: '0 0 22px', textTransform: "capitalize" }}>{active?.name} • {meterNumber} • {meterType} • {customerPhone}</p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginBottom: 14 }}>
               {pinDigits.map((digit, i) => (
                 <input
@@ -341,7 +353,6 @@ export default function electricitystation() {
             {pinError && (<div style={{ background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.3)', color: '#FF8A8A', fontSize: 12.5, fontWeight: 600, padding: '10px 12px', borderRadius: 12, marginBottom: 14 }}>{pinError}</div>)}
             <button onClick={handlePinSubmit} disabled={pinLoading || !isPinComplete} style={{ width: '100%', padding: 15, borderRadius: 14, border: 'none', background: isPinComplete ? '#FFEB3B' : '#2C3440', color: isPinComplete ? '#000' : '#777', fontWeight: 800, fontSize: 15, cursor: isPinComplete ? 'pointer' : 'not-allowed', marginBottom: 10, opacity: pinLoading ? 0.7 : 1 }}>{pinLoading ? "Verifying..." : "Confirm Payment"}</button>
             <button onClick={closePin} style={{ background: 'none', border: 'none', color: '#9AA3B2', fontSize: 13, fontWeight: 600, cursor: 'pointer', padding: 8 }}>Cancel</button>
-            {/* SAME AS AIRTIME - EXACT COPY */}
             <p style={{ fontSize: 11, color: '#5C6675', margin: '12px 0 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
               <Lock size={11} color="#5C6675" /> Your PIN is encrypted and never stored on this device
             </p>
@@ -354,7 +365,7 @@ export default function electricitystation() {
           <div style={{ background: '#1E242E', borderRadius: 20, padding: 28, width: '100%', maxWidth: 360, textAlign: 'center', border: '1px solid #2C3440' }}>
             <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#00C853', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', fontSize: 30 }}>✓</div>
             <h3 style={{ color: '#fff', fontSize: 18, margin: '0 0 6px' }}>Electricity Purchased</h3>
-            <p style={{ color: '#aaa', fontSize: 13, margin: '0 0 16px', textTransform: "lowercase" }}>{active?.name} • {customerName}</p>
+            <p style={{ color: '#aaa', fontSize: 13, margin: '0 0 16px', textTransform: "capitalize" }}>{active?.name} • {customerName}</p>
             <div style={{ background: '#0F131A', borderRadius: 12, padding: '12px 14px', textAlign: 'left', fontSize: 13, color: '#fff', marginBottom: 18 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}><span style={{ color: '#888' }}>Meter</span><span style={{ fontWeight: 700 }}>{meterNumber}</span></div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}><span style={{ color: '#888' }}>Phone</span><span style={{ fontWeight: 700 }}>{customerPhone}</span></div>

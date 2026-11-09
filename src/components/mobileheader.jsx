@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, User, Settings, ShieldCheck, LogOut, X, ChevronRight, LayoutDashboard } from "lucide-react";
+import { Menu, User, Settings, HelpCircle, LogOut, X, ChevronRight, LayoutDashboard } from "lucide-react";
 import { supabase } from "../supabase/supabaseClient";
 import Logo from "./logo";
 
@@ -104,12 +104,9 @@ const MobileHeader = ({ setPage, page, currentPage }) => {
             </div>
 
             <div style={{ flex:1, minWidth:0, lineHeight:'1.3' }}>
-              {/* Username - top */}
               <div style={{ fontSize:15, fontWeight:800, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>
                 {displayName}
               </div>
-
-              {/* Balance - below username, label + amount beside each other */}
               <div style={{ display:'flex', alignItems:'center', gap:5, marginTop:3 }}>
                 <span style={{ fontSize:12, color:'#888', fontWeight:600 }}>Balance:</span>
                 <span style={{ fontSize:12, fontWeight:500, color:'#0a0' }}>₦{Number(balance).toLocaleString('en-NG', { minimumFractionDigits: 2 })}</span>
@@ -143,9 +140,10 @@ const MobileHeader = ({ setPage, page, currentPage }) => {
               <ChevronRight size={16} style={{ marginLeft:'auto', color:'#aaa' }} />
             </div>
 
-            <div onClick={() => goTo("policy")} style={{ ...menuItemStyle, background: activePage === "policy" ? '#f5f5f5' : 'transparent' }}>
-              <span style={iconBoxStyle}><ShieldCheck size={18} /></span>
-              Policy
+            {/* F.A.Q - FIXED */}
+            <div onClick={() => goTo("faq")} style={{ ...menuItemStyle, background: activePage === "faq" ? '#f5f5f5' : 'transparent' }}>
+              <span style={iconBoxStyle}><HelpCircle size={18} /></span>
+              F.A.Q
               <ChevronRight size={16} style={{ marginLeft:'auto', color:'#aaa' }} />
             </div>
           </div>

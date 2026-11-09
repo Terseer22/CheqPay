@@ -1,0 +1,125 @@
+.cheqpay-card {
+  width: auto; /* no more 560px limit */
+  max-width: none;
+  margin: 15px; /* SAME as BalanceCard */
+  background: #000000;
+  color: #fff;
+  border-radius: 15px; /* SAME as BalanceCard */
+  padding: 26px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 0 40px rgba(45, 212, 191, 0.15);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-sizing: border-box;
+}
+
+.cheqpay-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cheqpay-check {
+  font-size: 38px;
+  line-height: 1;
+}
+
+.cheqpay-title {
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  margin: 0;
+  color: #fff;
+}
+
+.cheqpay-tagline {
+  color: #e0d72b;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  margin: 2px 0 0 0;
+}
+
+.cheqpay-dear {
+  color: #f6f6f6;
+  font-size: 21px;
+  margin: 0 0 12px 0;
+}
+
+.cheqpay-dear span {
+  color: #f3d807f1;
+}
+
+.cheqpay-main-text {
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 500;
+  margin: 0;
+}
+
+.cheqpay-sub-text {
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 12px 0 0 0;
+}
+
+
+.vehzalogo{width: 45px;
+height: 45px;}
+
+.cheqpay-icon-box {
+  width: 68px;
+  height: 68px;
+  background: #262626;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cheqpay-icon-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 18px;
+  background:#f3d807f1;
+  opacity: 0.85;
+  border-radius: 0 0 16px 16px;
+  clip-path: ellipse(80% 100% at 0% 100%);
+}
+
+.cheqpay-badge-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cheqpay-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid#f3d807f1;
+  border-radius: 999px;
+  padding: 4px 12px;
+  color:#f3d807f1;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.cheqpay-badge-check {
+  width: 20px;
+  height: 20px;
+  background: #f3d807f1;
+  color: #000;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}

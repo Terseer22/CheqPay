@@ -1,93 +1,27 @@
-.airtime-row-card{
+.rowCard{
   background:#1E232E;
   border-radius:24px;
   padding:20px;
   width:100%;
 }
-.row-title{
-  color:#fff;
-  font-weight:800;
-  margin-bottom:12px;
-  font-size:16px;
-}
-.network-row{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:10px;
-}
-.net-btn{
-  background:#2C3440;
-  color:#fff;
-  font-weight:900;
-  padding:16px 0;
-  border-radius:14px;
-  border:none;
-  cursor:pointer;
-  font-size:12px;
-  transition:0.2s;
-}
-.net-btn:hover{ background:#364050; transform: scale(1.03); }
-.net-btn:active{ transform: scale(0.97); }
+.title{color:#fff;font-weight:800;margin:0 0 12px 0}
+.networkRow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.netBtn{background:#2C3440;color:#fff;font-weight:900;padding:16px 0;border-radius:14px;border:none;cursor:pointer}
+.netBtn:hover{background:#364050}
 
-/* MODAL */
-.modal-wrapper{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-}
-@media(min-width:768px){
-  .modal-wrapper{ align-items:center; }
-}
-.backdrop{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter: blur(6px);
-}
-.modal-card{
-  position:relative;
-  width:100%;
-  max-width:420px;
-  background:#1E232E;
-  border-radius:32px 32px 0 0;
-  padding:28px;
-  animation: slideUp 0.3s ease-out;
-  border-top:1px solid rgba(255,255,255,0.1);
-}
-@media(min-width:768px){
-  .modal-card{ border-radius:32px; }
-}
-@keyframes slideUp{
-  from{ transform: translateY(100%); }
-  to{ transform: translateY(0); }
-}
-.drag-handle{
-  width:40px; height:5px; background:#555; border-radius:10px; margin:0 auto 20px auto;
-}
-@media(min-width:768px){ .drag-handle{ display:none; } }
-.modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
-.modal-title{ color:#fff; font-size:24px; font-weight:900; margin:0; }
-.modal-sub{ color:#8a8a8a; font-size:13px; margin:2px 0 0 0; }
-.close-btn{ width:36px; height:36px; border-radius:50%; border:none; background:#2C3440; color:#fff; cursor:pointer; }
-.input-label{ display:block; color:#8a8a8a; font-size:10px; font-weight:800; letter-spacing:1.5px; margin:16px 0 8px 4px; }
-.input-field{
-  width:100%; background:#2C3440; color:#fff; border:1px solid transparent; border-radius:16px;
-  padding:16px; outline:none; font-weight:700; font-size:16px; box-sizing:border-box;
-}
-.input-field:focus{ border-color:#FFEB3B; }
-.input-field::placeholder{ color:#666; }
-.quick-row{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 24px 0; }
-.quick-btn{
-  padding:8px 14px; border-radius:20px; border:1px solid #555; background:transparent; color:#fff;
-  font-weight:700; font-size:12px; cursor:pointer;
-}
-.quick-btn.active{ background:#fff; color:#000; border-color:#fff; }
-.pay-btn{
-  width:100%; background:#FFEB3B; color:#000; font-weight:900; padding:18px; border-radius:100px;
-  border:none; font-size:16px; cursor:pointer; transition:0.2s;
-}
-.pay-btn:disabled{ background:#333; color:#777; cursor:not-allowed; }
-.pay-btn:hover:not(:disabled){ background:#ffe90a; }
+.modalWrapper{position:fixed;inset:0;z-index:9999;display:flex;align-items:flex-end;justify-content:center}
+.backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px)}
+.modalCard{position:relative;width:100%;max-width:420px;background:#1E232E;border-radius:32px;padding:28px;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modalHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.modalTitle{color:#fff;font-size:24px;font-weight:900;margin:0}
+.modalSub{color:#8a8a8a;font-size:13px}
+.closeBtn{width:36px;height:36px;border-radius:50%;border:none;background:#2C3440;color:#fff;cursor:pointer}
+.label{display:block;color:#8a8a8a;font-size:10px;font-weight:800;letter-spacing:1.5px;margin:16px 0 8px 4px}
+.input{width:100%;background:#2C3440;color:#fff;border:1px solid transparent;border-radius:16px;padding:16px;outline:none;font-weight:700;box-sizing:border-box}
+.input:focus{border-color:#FFEB3B}
+.quickRow{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px 0}
+.quickBtn{padding:8px 14px;border-radius:20px;border:1px solid #555;background:transparent;color:#fff;font-weight:700;font-size:12px;cursor:pointer}
+.quickBtnActive{background:#fff;color:#000;border-color:#fff}
+.payBtn{width:100%;background:#FFEB3B;color:#000;font-weight:900;padding:18px;border-radius:100px;border:none;cursor:pointer}
+.payBtn:disabled{background:#333;color:#777}

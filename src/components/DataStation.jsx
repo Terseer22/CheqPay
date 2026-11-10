@@ -230,7 +230,7 @@ export default function DataStation() {
               key={net.id}
               onClick={() => { setActiveNetwork(net); setSelected(null) }}
               style={{
-                background: "#1E242E",
+                background: "#000000",
                 border: activeNetwork?.id === net.id ? "2px solid #FFEB3B" : "1px solid #2C3440",
                 borderRadius: 14,
                 padding: "12px 6px 10px",

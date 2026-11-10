@@ -54,7 +54,7 @@ export default function MessageCard({ username, user, setPage }) {
       </p>
 
       <p className="cheqpay-main-text">
-     Welcome to Vehza, your one-stop platform for affordable data, airtime, cable, and electricity payments, with zero funding charges
+     Welcome to Vehza, your one-stop platform for affordable data, airtime, cable, and electricity payments, with zero funding charges.
       </p>
 
       <p className="cheqpay-sub-text">

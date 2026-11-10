@@ -36,7 +36,21 @@ export default function App() {
     check();
     window.addEventListener("resize", check);
 
+    // CHECK IF NA RESET LINK FIRST - before any redirect
+    const isRecoveryLink =
+      window.location.pathname === "/reset-password" ||
+      window.location.hash.includes("type=recovery") ||
+      window.location.search.includes("type=recovery");
+
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (isRecoveryLink) {
+        // No go mobileHome, stay for reset-password
+        if (session?.user) setUser(session.user);
+        setPage("reset-password");
+        setLoading(false);
+        return;
+      }
+
       if (session?.user) {
         setUser(session.user)
         setPage("mobileHome")
@@ -47,9 +61,18 @@ export default function App() {
       setLoading(false)
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      // Supabase go fire this event when you click reset link
+      if (event === "PASSWORD_RECOVERY") {
+        if (session?.user) setUser(session.user);
+        setPage("reset-password");
+        return;
+      }
+
       if (session?.user) {
         setUser(session.user)
+        // No auto-go mobileHome if we dey reset page already
+        setPage((currentPage) => currentPage === "reset-password" ? "reset-password" : currentPage)
       } else {
         setUser(null)
         setPage((currentPage) => PROTECTED_PAGES.includes(currentPage) ? "login" : currentPage)

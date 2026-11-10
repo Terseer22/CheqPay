@@ -2,58 +2,58 @@ import { useState } from "react"
 
 const SECTIONS = [
   {
-    title: "About CheqPay",
+    title: "About VEHZA",
     items: [
-      { q: "What is CheqPay?", a: "CheqPay is Nigeria's fast and secure platform for buying cheap data, airtime, paying electricity bills, and subscribing to cable TV (DStv, GOtv, and Startimes) — all in one place, in seconds." },
-      { q: "Is CheqPay legitimate and safe?", a: "Yes. CheqPay uses secure payments, encrypted transactions, and verified providers. Your wallet, PIN, and personal information are protected." },
-      { q: "Who can use CheqPay?", a: "Anyone in Nigeria with a phone number, email address, and a bank account or card can use CheqPay. It works for students, workers, business owners, and resellers." },
-      { q: "Do I need to download an app to use CheqPay?", a: "No. CheqPay works directly in your browser on mobile and desktop. No app download is required." },
-      { q: "Is CheqPay available 24/7?", a: "Yes. You can buy data, airtime, electricity, and cable subscriptions on CheqPay at any time, day or night, including weekends and public holidays." },
-      { q: "What services does CheqPay offer?", a: "CheqPay offers cheap data bundles, airtime top-up, electricity bill payment, and cable TV subscriptions for DStv, GOtv, and Startimes." },
+      { q: "What is Vehza ?", a: "Vehza is Nigeria's fast and secure platform for buying cheap data, airtime, paying electricity bills, and subscribing to cable TV (DStv, GOtv, and Startimes) — all in one place, in seconds." },
+      { q: "Is Vehza legitimate and safe?", a: "Yes. CheqPay uses secure payments, encrypted transactions, and verified providers. Your wallet, PIN, and personal information are protected." },
+     
+      { q: "Do I need to download an app to use Vehza?", a: "No. Vehza works directly in your browser on mobile and desktop. No app download is required." },
+      { q: "Is Vehza available 24/7?", a: "Yes. You can buy data, airtime, electricity, and cable subscriptions on CheqPay at any time, day or night, including weekends and public holidays." },
+      { q: "What services does  offer?", a: "CheqPay offers cheap data bundles, airtime top-up, electricity bill payment, and Vehza cable TV subscriptions for DStv, GOtv, and Startimes." },
     ]
   },
   {
     title: "Account",
     items: [
-      { q: "How do I create an account on CheqPay?", a: "Click Sign Up, enter your full name, email, phone number, and password. Verify your email or phone number, then log in to start using CheqPay." },
-      { q: "Is it free to create a CheqPay account?", a: "Yes. Creating an account on CheqPay is completely free. You only pay for the services you buy." },
-      { q: "Can I have more than one CheqPay account?", a: "No. Each user is allowed only one account, linked to one phone number and email address, for security reasons." },
-      { q: "How do I update my profile information?", a: "Go to Settings > Profile, edit your name, phone number, or email, and save the changes." },
-      { q: "How do I change my password?", a: "Go to Settings > Change Password, enter your old password, then create a new password." },
+      
+    
+      { q: "Can I have more than one Vehza account?", a: "No. Each user is allowed only one account, linked to one phone number and email address, for security reasons." },
+      { q: "How do I update my profile information?", a: "Go to  Profile, edit your name, phone number, or email, and save the changes." },
+      { q: "How do I change my password?", a: "Go to profile> Change Password, enter your old password, then create a new password." },
       { q: "I forgot my password. What should I do?", a: "Click Forgot Password on the login page, enter your email, and follow the link sent to you to reset your password." },
-      { q: "Can I delete my CheqPay account?", a: "Yes. Go to Settings > Delete Account or contact support for assistance." },
+      { q: "Can I delete my CheqPay account?", a: "Yes.  contact support for assistance." },
     ]
   },
   {
     title: "Wallet",
     items: [
-      { q: "How do I fund my CheqPay wallet?", a: "Go to Wallet > Add Money, choose an amount, and pay with bank transfer or card. Your wallet will be credited instantly." },
-      { q: "Does CheqPay charge for funding my wallet?", a: "No. Funding your wallet is completely free. There are zero funding charges." },
+      { q: "How do I fund my Vehza wallet?", a: "Go to Fund wallet, choose an amount, and pay with bank transfer or card. Your wallet will be credited instantly." },
+      { q: "Does Vehza charge for funding my wallet?", a: "No. Funding your wallet is completely free. There are zero funding charges." },
       { q: "What payment methods can I use?", a: "You can fund your wallet with bank transfer or debit card." },
       { q: "How long does wallet funding take?", a: "Most wallet funding is instant. If there is a bank delay, it may take up to 10 minutes. If it takes longer, contact support with your payment reference." },
       { q: "How do I check my wallet balance?", a: "Your wallet balance is displayed at the top of your dashboard and on each service page before you make a payment." },
       { q: "What is the minimum amount I can fund?", a: "You can fund your wallet with as little as ₦100." },
-      { q: "Can I withdraw money from my wallet?", a: "For now, wallet funds are for purchases within CheqPay. If you experience any funding issue, contact support." },
+      { q: "Can I withdraw money from my wallet?", a: "For now, wallet funds are for purchases within Vehza. If you experience any funding issue, contact support." },
       { q: "My wallet was not credited after payment. What should I do?", a: "Wait 10 minutes, refresh your dashboard, and check your Transaction History. If it is still not credited, contact support with your payment reference and amount." },
     ]
   },
   {
     title: "Data",
     items: [
-      { q: "How do I buy data on CheqPay?", a: "Go to Data, select your network (MTN, Glo, Airtel, or 9mobile), choose a plan, enter the phone number, and confirm with your PIN." },
-      { q: "Which networks does CheqPay support for data?", a: "CheqPay supports MTN, Glo, Airtel, and 9mobile." },
+      { q: "How do I buy data on Vehza?", a: "Go to Data, select your network (MTN, Glo, Airtel, or 9mobile), choose a plan, enter the phone number, and confirm with your PIN." },
+      { q: "Which networks does Vehza support for data?", a: "CheqPay supports MTN, Glo, Airtel, and 9mobile." },
       { q: "How long does data delivery take?", a: "Most deliveries are instant, in less than one minute. If the network is slow, it may take up to 5 minutes." },
       { q: "Can I buy data for someone else?", a: "Yes. Simply enter the recipient's phone number instead of yours." },
       { q: "Can I buy data in bulk?", a: "Yes. You can buy multiple data bundles for different numbers, one after the other, from your wallet." },
       { q: "Why is my data bundle not working after purchase?", a: "Ensure your phone is on the correct network and data is turned on. Restart your phone and check your data balance with your network's USSD code. If it still does not work, contact support." },
-      { q: "Is CheqPay data cheaper than others?", a: "Yes. CheqPay offers some of the cheapest data bundles in Nigeria, plus zero funding charges, so you save more on every purchase." },
+      { q: "Is Vehza data cheaper than others?", a: "Yes. Vehza offers some of the cheapest data bundles in Nigeria, plus zero funding charges, so you save more on every purchase." },
       { q: "Do CheqPay data bundles expire?", a: "Yes. Each data plan has its own validity period, such as daily, weekly, or monthly. The validity is shown before you buy." },
     ]
   },
   {
     title: "Airtime",
     items: [
-      { q: "How do I buy airtime on CheqPay?", a: "Go to Airtime, select the network, enter the phone number and amount, then confirm with your PIN." },
+      { q: "How do I buy airtime on Vehza?", a: "Go to Airtime, select the network, enter the phone number and amount, then confirm with your PIN." },
       { q: "Which networks can I buy airtime for?", a: "You can buy airtime for MTN, Glo, Airtel, and 9mobile." },
       { q: "What is the minimum amount for airtime?", a: "The minimum amount for airtime is ₦50." },
       { q: "Can I buy airtime for another number?", a: "Yes. Just enter the recipient's number during checkout." },
@@ -63,8 +63,8 @@ const SECTIONS = [
   {
     title: "Electricity",
     items: [
-      { q: "How do I buy electricity tokens on CheqPay?", a: "Go to Electricity, select your DISCO, choose Prepaid or Postpaid, enter your meter number, verify it, enter the amount and phone number, then confirm with your PIN." },
-      { q: "Which electricity companies does CheqPay support?", a: "CheqPay supports Ikeja (IKEDC), Eko (EKEDC), Abuja (AEDC), Kano (KEDCO), Enugu (EEDC), Port Harcourt (PHED), Ibadan (IBEDC), Kaduna (KAEDCO), Jos (JED), Benin (BEDC), and Yola (YEDC)." },
+      { q: "How do I buy electricity tokens on Vehza?", a: "Go to Electricity, select your DISCO, choose Prepaid or Postpaid, enter your meter number, verify it, enter the amount and phone number, then confirm with your PIN." },
+      { q: "Which electricity companies does Vehza support?", a: "CheqPay supports Ikeja (IKEDC), Eko (EKEDC), Abuja (AEDC), Kano (KEDCO), Enugu (EEDC), Port Harcourt (PHED), Ibadan (IBEDC), Kaduna (KAEDCO), Jos (JED), Benin (BEDC), and Yola (YEDC)." },
       { q: "What is the difference between Prepaid and Postpaid?", a: "Prepaid means you pay before you use electricity and receive a token to load. Postpaid means you pay after you have used electricity, to settle your bill." },
       { q: "Where will my electricity token be sent?", a: "Your token will appear on your screen immediately after payment, and it will also be sent to the phone number you provided via SMS." },
       { q: "What is the minimum amount for electricity?", a: "The minimum amount is ₦500 plus a ₦50 service fee. So for ₦500, the total is ₦550." },
@@ -76,7 +76,7 @@ const SECTIONS = [
   {
     title: "Cable TV",
     items: [
-      { q: "Which cable providers does CheqPay support?", a: "CheqPay supports DStv, GOtv, and Startimes." },
+      { q: "Which cable providers does Vehza support?", a: "Vehza supports DStv, GOtv, and Startimes." },
       { q: "How do I renew my DStv or GOtv subscription?", a: "Go to Cable, select DStv or GOtv, enter your smartcard or IUC number, verify it, choose your bouquet, and confirm with your PIN." },
       { q: "How long does cable activation take?", a: "Cable subscriptions are activated instantly in most cases. If it takes longer than 15 minutes, restart your decoder and contact support." },
       { q: "Can I subscribe to cable for someone else?", a: "Yes. Enter the recipient's smartcard or IUC number instead of yours." },
@@ -87,28 +87,27 @@ const SECTIONS = [
     title: "PIN & Security",
     items: [
       { q: "What is a Transaction PIN?", a: "It is a 4-digit PIN you create to confirm every payment. It protects your wallet so no one can spend your money, even if they have access to your phone." },
-      { q: "How do I set my Transaction PIN?", a: "Go to Settings > Set Transaction PIN, enter your 4-digit PIN, and confirm it. You must set a PIN before you can make any purchase." },
-      { q: "I forgot my PIN. What should I do?", a: "Go to Settings > Change PIN / Reset PIN and follow the steps to set a new PIN. If you are unable to, contact support." },
-      { q: "Can someone else use my CheqPay account?", a: "No. Never share your password or PIN with anyone. CheqPay staff will never ask you for your PIN or password." },
+      { q: "How do I set my Transaction PIN?", a: "Go to profile> Set Transaction PIN, enter your 4-digit PIN, and confirm it. You must set a PIN before you can make any purchase." },
+      { q: "I forgot my PIN. What should I do?", a: "Go to profile > Change PIN / Reset PIN and follow the steps to set a new PIN. If you are unable to, contact support." },
+      { q: "Can someone else use my Vehza account?", a: "No. Never share your password or PIN with anyone. CheqPay staff will never ask you for your PIN or password." },
       { q: "How do I keep my account secure?", a: "Use a strong password, keep your PIN private, do not share your OTP, and always log out when using a shared device." },
     ]
   },
   {
     title: "Business",
     items: [
-      { q: "Can I use CheqPay for my business?", a: "Yes. Many vendors, POS operators, and small businesses use CheqPay to sell data, airtime, electricity, and cable subscriptions to their customers." },
-      { q: "Can I become a CheqPay reseller?", a: "Yes. Create an account, fund your wallet, and start selling CheqPay services to your customers at your own price." },
-      { q: "Does CheqPay have a referral program?", a: "Yes. Share your referral link with friends. When they sign up and make their first transaction, you will be rewarded according to the current referral offer." },
-      { q: "Does CheqPay have an API?", a: "CheqPay is working on API access for businesses. Contact support for updates on business integration." },
+      { q: "Can I use Vehza for my business?", a: "Yes. Many vendors, POS operators, and small businesses use Vehza to sell data, airtime, electricity, and cable subscriptions to their customers." },
+     
+  
     ]
   },
   {
     title: "Refunds",
     items: [
       { q: "I paid but did not receive value. What happens?", a: "Do not worry. Check your Transaction History. If it shows failed, your money will be automatically refunded to your wallet within 24 hours. If it remains pending after 1 hour, contact support with your transaction reference." },
-      { q: "How long does a refund take?", a: "Refunds for failed transactions are usually instant or within 24 hours, directly to your CheqPay wallet." },
+      { q: "How long does a refund take?", a: "Refunds for failed transactions are usually instant or within 24 hours, directly to your Vehza wallet." },
       { q: "How do I view my transaction history?", a: "Go to Dashboard > Transactions or History to see all your purchases, funding, and refunds." },
-      { q: "How do I contact CheqPay support?", a: "Go to Support / Help inside the app, or send us a message on WhatsApp or Email. We respond quickly." },
+      { q: "How do I contact Vehza support?", a: "Go to Support / Help inside the app, or send us a message on WhatsApp or Email. We respond quickly." },
       { q: "What information should I send when reporting an issue?", a: "Send your full name, phone number, transaction reference, amount, date, and a screenshot if possible. This helps support resolve your issue faster." },
     ]
   },
@@ -127,7 +126,7 @@ export default function FAQPage() {
         {/* HEADER - SMALLER */}
         <div style={{ textAlign: "center", marginBottom: 10 }}>
           <h1 style={{ fontSize: 17, fontWeight: 800, margin: "2px 0" }}>Frequently Asked Questions</h1>
-          <p style={{ color: "#9AA3B2", fontSize: 11, margin: 0, lineHeight: 1.4 }}>Find answers about data, airtime, electricity, cable TV, wallet, PIN and more.</p>
+          <p style={{ color: "#9AA3B2", fontSize: 10, margin: 0, lineHeight: 1.4 }}>Find answers about data, airtime, electricity, cable TV, wallet, PIN and more.</p>
         </div>
 
         {/* BUTTONS - REPLACED SEARCH */}
@@ -137,10 +136,10 @@ export default function FAQPage() {
               key={cat}
               onClick={() => { setActive(cat); setOpenKey(null) }}
               style={{
-                whiteSpace: "nowrap", padding: "6px 10px", borderRadius: 99, border: "none",
+                whiteSpace: "nowrap", padding: "8px 12px", borderRadius: 5, border: "none",
                 background: active === cat ? "#FFEB3B" : "#1E242E",
                 color: active === cat ? "#000" : "#fff",
-                fontWeight: 700, fontSize: 11, cursor: "pointer"
+                fontWeight: 500, fontSize: 9, cursor: "pointer"
               }}
             >{cat}</button>
           ))}
@@ -152,7 +151,7 @@ export default function FAQPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {shown.map((sec, si) => (
             <div key={si}>
-              <h2 style={{ fontSize: 11.5, fontWeight: 800, margin: "0 0 6px 2px", color: "#FFEB3B", textTransform: "uppercase", letterSpacing: 0.4 }}>{sec.title}</h2>
+              <h2 style={{ fontSize: 10, fontWeight: 300, margin: "0 0 6px 2px", color: "#aaa25b", textTransform: "uppercase", letterSpacing: 0.4 }}>{sec.title}</h2>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 {sec.items.map((item, ii) => {
@@ -164,16 +163,16 @@ export default function FAQPage() {
                         onClick={() => setOpenKey(isOpen ? null : key)}
                         style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, textAlign: "left", background: "none", border: "none", padding: "9px 10px", cursor: "pointer", color: "#fff" }}
                       >
-                        <span style={{ fontSize: 12, fontWeight: 600, lineHeight: 1.4 }}>{item.q}</span>
+                        <span style={{ fontSize: 10, fontWeight: 300, lineHeight: 1.4 }}>{item.q}</span>
                         <span style={{
                           width: 20, height: 20, minWidth: 20, borderRadius: "50%", background: isOpen ? "#FFEB3B" : "#2C3440",
                           color: isOpen ? "#000" : "#fff", display: "flex", alignItems: "center", justifyContent: "center",
-                          fontSize: 13, fontWeight: 800, transform: isOpen ? "rotate(45deg)" : "rotate(0deg)", transition: "0.2s"
+                          fontSize: 10, fontWeight: 300, transform: isOpen ? "rotate(45deg)" : "rotate(0deg)", transition: "0.2s"
                         }}>+</span>
                       </button>
 
                       {isOpen && (
-                        <div style={{ padding: "0 10px 10px", fontSize: 11.5, lineHeight: 1.55, color: "#C5CBD6", borderTop: "1px solid #2C3440", paddingTop: 8 }}>
+                        <div style={{ padding: "0 10px 10px", fontSize: 9, lineHeight: 1.55, color: "#C5CBD6", borderTop: "1px solid #2C3440", paddingTop: 8 }}>
                           {item.a}
                         </div>
                       )}
